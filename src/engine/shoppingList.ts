@@ -7,6 +7,7 @@ export interface ShoppingListItem {
   color: LegoColor;
   quantity: number;
   brickLinkUrl: string;
+  lineCost: number; // quantity × brick.estimatedPrice
 }
 
 export interface ShoppingList {
@@ -14,6 +15,7 @@ export interface ShoppingList {
   totalBricks: number;
   totalUniqueItems: number;
   estimatedStudCount: number;
+  estimatedTotalCost: number; // sum of all lineCost values
 }
 
 export function generateShoppingList(placedBricks: PlacedBrick[]): ShoppingList {
@@ -34,16 +36,27 @@ export function generateShoppingList(placedBricks: PlacedBrick[]): ShoppingList 
         color: placed.color,
         quantity: 1,
         brickLinkUrl: `https://www.bricklink.com/v2/catalog/catalogitem.page?P=${placed.brick.partNumber}`,
+        lineCost: 0, // computed below
       });
     }
   }
 
-  const items = Array.from(map.values()).sort((a, b) => b.quantity - a.quantity);
+  const items = Array.from(map.values());
+
+  // Compute line costs
+  for (const item of items) {
+    item.lineCost = item.quantity * item.brick.estimatedPrice;
+  }
+
+  items.sort((a, b) => b.quantity - a.quantity);
+
+  const estimatedTotalCost = items.reduce((sum, item) => sum + item.lineCost, 0);
 
   return {
     items,
     totalBricks: placedBricks.length,
     totalUniqueItems: items.length,
     estimatedStudCount,
+    estimatedTotalCost,
   };
 }

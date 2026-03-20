@@ -3,6 +3,7 @@ import { useModelStore } from '../hooks/useModelStore';
 import { generateShoppingList } from '../engine/shoppingList';
 import type { ShoppingList as ShoppingListType } from '../engine/shoppingList';
 import { exportShoppingListCsv } from '../utils/exportCsv';
+import { exportBrickLinkXml } from '../utils/exportBrickLinkXml';
 
 type SortMode = 'quantity' | 'color' | 'brick';
 
@@ -34,6 +35,13 @@ export default function ShoppingList() {
     <div className="shopping-list">
       <h3>Shopping List</h3>
 
+      <div className="estimated-cost">
+        <span className="cost-value">
+          Estimated cost: ${shoppingList.estimatedTotalCost.toFixed(2)} USD
+        </span>
+        <span className="cost-disclaimer">Based on avg. BrickLink prices</span>
+      </div>
+
       <div className="shopping-stats">
         <span>{shoppingList.totalBricks.toLocaleString()} total bricks</span>
         <span>{shoppingList.totalUniqueItems} unique items</span>
@@ -57,6 +65,12 @@ export default function ShoppingList() {
           onClick={() => exportShoppingListCsv(shoppingList)}
         >
           Export CSV
+        </button>
+        <button
+          className="export-btn export-xml-btn"
+          onClick={() => exportBrickLinkXml(shoppingList)}
+        >
+          Export BrickLink XML
         </button>
       </div>
 
