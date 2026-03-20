@@ -3,9 +3,8 @@ import { useModelStore } from '../hooks/useModelStore';
 const SAMPLE_MODELS = [
   { name: 'Pikachu', file: 'pikachu.glb' },
   { name: 'Charmander', file: 'charmander.glb' },
-  { name: 'Colored Cube', file: 'colored-cube.glb' },
-  { name: 'Colored Sphere', file: 'colored-sphere.glb' },
-  { name: 'Character', file: 'character.glb' },
+  { name: 'Articuno', file: 'articuno.glb' },
+  { name: 'Bridge', file: 'bridge.glb' },
 ];
 
 export default function SampleModelSelector() {
