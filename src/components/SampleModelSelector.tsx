@@ -3,7 +3,6 @@ import { useModelStore } from '../hooks/useModelStore';
 const SAMPLE_MODELS = [
   { name: 'Pikachu', file: 'pikachu.glb' },
   { name: 'Charmander', file: 'charmander.glb' },
-  { name: 'Articuno', file: 'articuno.glb' },
   { name: 'Bridge', file: 'bridge.glb' },
 ];
 
